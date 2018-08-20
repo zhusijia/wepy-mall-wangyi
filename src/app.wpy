@@ -1,0 +1,116 @@
+<style lang="less">
+page {
+  background: #f4f4f4;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.tabbar {
+  position: relative;
+  &::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #7f7f7f;
+    color: #7f7f7f;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+import req from './network'
+import { loginUrl } from './config'
+import { setStore } from 'wepy-redux'
+import configStore from './store'
+
+const store = configStore()
+setStore(store)
+
+export default class extends wepy.app {
+  config = {
+    pages: [
+      'pages/index'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    },
+    // tabBar: {
+    //   color: '#7f7f7f',
+    //   selectedColor: '#b4282d',
+    //   backgroundColor: '#fff',
+    //   borderStyle: 'black',
+    //   list: [
+    //     {
+    //       pagePath: 'pages/index',
+    //       selectedIconPath: './static/tabbar/home-select.png',
+    //       iconPath: './static/tabbar/home.png',
+    //       text: '首页',
+    //     },
+    //     {
+    //       pagePath: 'pages/index',
+    //       selectedIconPath: './static/tabbar/classification-select.png',
+    //       iconPath: './static/tabbar/classification.png',
+    //       text: '分类',
+    //     },
+    //     {
+    //       pagePath: 'pages/index',
+    //       selectedIconPath: './static/tabbar/evaluate-select.png',
+    //       iconPath: './static/tabbar/evaluate.png',
+    //       text: '好评',
+    //     },
+    //     {
+    //       pagePath: 'pages/index',
+    //       selectedIconPath: './static/tabbar/car-select.png',
+    //       iconPath: './static/tabbar/car.png',
+    //       text: '购物车',
+    //     },
+    //     {
+    //       pagePath: 'pages/index',
+    //       selectedIconPath: './static/tabbar/me-select.png',
+    //       iconPath: './static/tabbar/me.png',
+    //       text: '个人',
+    //     }
+    //   ]
+    // }
+  }
+
+
+  globalData = {
+    userInfo: null
+  }
+
+  constructor () {
+    super()
+    this.use('requestfix')
+    this.use('promisify')
+  }
+
+  onLaunch() {
+    // this.login()
+  }
+
+  async login() {
+    const data = await wepy.login()
+    console.log('[login]', loginUrl)
+    await req.request({url: `${loginUrl}?code=${data.code}&old_user_id=&old_user_id=`, method: 'post'})
+  }
+}
+</script>

@@ -1,0 +1,70 @@
+<style lang="less">
+.tabbar {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100rpx;
+  width: 100%;
+  padding: 16rpx 0;
+  display: flex;
+  background: #fff;
+  // align-items: center;
+  // justify-content: center;
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    image {
+      width: 40rpx;
+      height: 40rpx;
+    }
+    .title {
+      color: #000;
+      font-size: 24rpx;
+    }
+  }
+}
+</style>
+
+<template>
+  <view class="tabbar">
+    <view class="tab">
+      <image class="home" mode="aspectFit" src="../static/tabbar/home.png"></image>
+      <!-- <image class="home" mode="aspectFit" src="../static/tabbar/home-select.png"></image> -->
+      <view class="title">首页</view>
+    </view>
+    <view class="tab">
+      <image class="home" mode="aspectFit" src="../static/tabbar/classification.png"></image>
+      <!-- <image class="home" mode="aspectFit" src="../static/tabbar/classification-select.png"></image> -->
+      <view class="title">分类</view>
+    </view>
+    <view class="tab">
+      <image class="home" mode="aspectFit" src="../static/tabbar/evaluate.png"></image>
+      <!-- <image class="home" mode="aspectFit" src="../static/tabbar/evaluate-select.png"></image> -->
+      <view class="title">好评</view>
+    </view>
+    <view class="tab">
+      <image class="home" mode="aspectFit" src="../static/tabbar/car.png"></image>
+      <!-- <image class="home" mode="aspectFit" src="../static/tabbar/car-select.png"></image> -->
+      <view class="title">购物车</view>
+    </view>
+    <view class="tab">
+      <image class="home" mode="aspectFit" src="../static/tabbar/me.png"></image>
+      <!-- <image class="home" mode="aspectFit" src="../static/tabbar/me-select.png"></image> -->
+      <view class="title">个人</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+
+export default class Tabbar extends wepy.page {
+
+}
+  
+</script>
