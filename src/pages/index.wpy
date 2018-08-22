@@ -1,6 +1,8 @@
 <style lang="less">
 @s-text: 24rpx;
 @lg-text: 30rpx;
+@nor-text: 28rpx;
+@border-color: #d9d9d9;
 .top-banner {
   width: 100%;
   height: auto;
@@ -17,7 +19,7 @@
   width: 100%;
   display: flex;
   box-sizing: border-box;
-  padding: 20rpx;
+  padding: 20rpx 26rpx;
   background: #fff;
   .tips {
     flex: 1;
@@ -38,10 +40,65 @@
   width: 100%;
   box-sizing: border-box;
   margin-top: 20rpx;
-  padding: 20rpx;
-  .title {
+  padding: 30rpx 18rpx;
+  .first-title {
     text-align: center;
     font-size: @lg-text;
+  }
+  .panel-box {
+    padding: 30rpx 0;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 8rpx;
+      right: -18rpx;
+      height: 1px;
+      border-bottom: 1px solid @border-color;
+    }
+    .panel {
+      flex: 1;
+      box-sizing: border-box;
+      padding: 8rpx;
+      height: 180rpx;
+      // background: #efeee8;
+      min-width: 50%;
+      position: relative;
+      border-radius: 6rpx;
+      .bg {
+        position:relative;
+        width: 100%;
+        height: 100%;
+        background: #efeee8;
+        border-radius: 6rpx;
+        overflow:hidden;
+      }
+      .info {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        padding: 30rpx 20rpx;
+        .title {
+          font-size: @nor-text;
+          font-weight: bold;
+        }
+        .min-price {
+          margin-top: 10rpx;
+          font-size: @s-text;
+        }
+      }
+      .image {
+        position: absolute;
+        right: 0;
+        // width: 80%;
+        width: 270rpx;
+        height: 100%;
+      }
+    }
   }
 }
 </style>
@@ -71,7 +128,47 @@
       </view>
     </view>
     <view class="main-body">
-      <view class="title">独乐乐，不如众乐乐</view>
+      <view class="first-title">品牌制造商直供</view>
+      <view class="panel-box">
+        <repeat for="{{classification}}" index="index" key="index" item="item">
+          <view class="panel">
+            <view class="bg">
+              <view class="info">
+                <view class="title">{{item.title}}</view>
+                <view class="min-price">{{item.minPrice}}元起</view>
+              </view>
+              <image class="image" mode="aspectFill" src="{{utils.formatUrl(item.img)}}"></image>
+            </view>
+          </view>
+        </repeat>
+        <!-- <view class="panel">
+          <view class="bg">
+            <view class="info">
+              <view class="title">海外制造商</view>
+              <view class="min-price">9.9元起</view>
+            </view>
+            <image class="image" mode="aspectFill" src="{{utils.formatUrl('974a2af32c9f6c1e3396961dfa10805b.png')}}"></image>
+          </view>
+        </view>
+        <view class="panel">
+          <view class="bg">
+            <view class="info">
+              <view class="title">海外制造商</view>
+              <view class="min-price">9.9元起</view>
+            </view>
+            <image class="image" mode="aspectFill" src="{{utils.formatUrl('974a2af32c9f6c1e3396961dfa10805b.png')}}"></image>
+          </view>
+        </view>
+        <view class="panel">
+          <view class="bg">
+            <view class="info">
+              <view class="title">海外制造商</view>
+              <view class="min-price">9.9元起</view>
+            </view>
+            <image class="image" mode="aspectFill" src="{{utils.formatUrl('974a2af32c9f6c1e3396961dfa10805b.png')}}"></image>
+          </view>
+        </view> -->
+      </view>
     </view>
     <tabbar />
   </view>
@@ -80,6 +177,7 @@
 <script>
 import wepy from 'wepy';
 import tabbar from '../components/tabbar';
+import utils from '../wxs/utils.wxs';
 
 export default class Index extends wepy.page {
   config = {
@@ -87,11 +185,21 @@ export default class Index extends wepy.page {
   };
 
   data = {
-    imgUrls: ['../static/banner/1.jpg', '../static/banner/2.jpg', '../static/banner/3.jpg', '../static/banner/4.jpg', '../static/banner/5.jpg']
+    imgUrls: ['../static/banner/1.jpg', '../static/banner/2.jpg', '../static/banner/3.jpg', '../static/banner/4.jpg', '../static/banner/5.jpg'],
+    classification: [
+      {title: '海外制造商', minPrice: 9.9, img: '974a2af32c9f6c1e3396961dfa10805b.png'},
+      {title: 'Armani制造商', minPrice: 199, img: '322db9256205a40237f3f3968bce0a30.png'},
+      {title: 'CK制造商', minPrice: 25, img: 'e57c3fb16c4633c292d8c0e7cb053a6f.png'},
+      {title: '新秀丽制造商', minPrice: 49, img: 'f57d460dde6e737f2bacd9f67cb73a41.png'},
+    ]
   }
 
   onLoad() {
     let self = this;
+  }
+
+  wxs = {
+    utils: utils
   }
 
   components = {

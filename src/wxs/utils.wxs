@@ -1,0 +1,7 @@
+function formatUrl(imgId) {
+	return 'http://yanxuan.nosdn.127.net/' + imgId + '?imageView&thumbnail=180x0&quality=100'
+}
+
+module.exports = {
+	formatUrl: formatUrl
+}
